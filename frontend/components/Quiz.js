@@ -1,6 +1,8 @@
-import React from 'react'
+import React from "react";
+import { connect } from "react-redux";
+import * as actionCreators from "../state/action-creators";
 
-export default function Quiz(props) {
+export function Quiz(props) {
   return (
     <div id="wrapper">
       {
@@ -12,23 +14,22 @@ export default function Quiz(props) {
             <div id="quizAnswers">
               <div className="answer selected">
                 A function
-                <button>
-                  SELECTED
-                </button>
+                <button>SELECTED</button>
               </div>
 
               <div className="answer">
                 An elephant
-                <button>
-                  Select
-                </button>
+                <button>Select</button>
               </div>
             </div>
 
             <button id="submitAnswerBtn">Submit answer</button>
           </>
-        ) : 'Loading next quiz...'
+        ) : (
+          "Loading next quiz..."
+        )
       }
     </div>
-  )
+  );
 }
+export default connect((st) => st, actionCreators)(Quiz);
