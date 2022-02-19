@@ -3,13 +3,9 @@ import * as types from "../state/action-types";
 import axios from "axios";
 
 // ❗ You don't need to add extra action creators to achieve MVP
-export const moveClockwise = (props) => (dispatch) => {
-  if (props.wheel < 5) {
-    props.wheel++;
-  } else {
-    props.wheel = 0;
-  }
-  dispatch({ type: types.MOVE_CLOCKWISE, payload: props.wheel });
+export const moveClockwise = (wheel) => {
+  console.log("here is moveClockwise: ", wheel);
+  return { type: types.MOVE_CLOCKWISE, payload: wheel };
 };
 export function moveCounterClockwise() {}
 
@@ -46,4 +42,5 @@ export function postQuiz() {
     // - Dispatch the resetting of the form
   };
 }
+
 // ❗ On promise rejections, use log statements or breakpoints, and put an appropriate error message in state

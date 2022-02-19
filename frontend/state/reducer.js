@@ -6,6 +6,11 @@ const initialWheelState = 0;
 function wheel(state = initialWheelState, action) {
   switch (action.type) {
     case types.MOVE_CLOCKWISE:
+      if (state.wheel < 5) {
+        state.wheel++;
+      } else {
+        state.wheel = initialWheelState;
+      }
       return action.payload;
     default:
       return state;

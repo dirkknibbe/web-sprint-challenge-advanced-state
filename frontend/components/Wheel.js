@@ -2,16 +2,18 @@ import React from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "../state/action-creators";
 
-export function Wheel(props) {
-  const handleMoveClockwise = (props) => {
-    console.log("logging props inside handleMoveClockwise: ", props);
-    if (props.wheel < 5) {
-      props.wheel++;
-    } else {
-      props.wheel = 0;
-    }
-    return props.wheel;
-  };
+export function Wheel(props, dispatch) {
+  // const handleMoveClockwise = (wheel) => {
+  //   console.log("logging wheel inside handleMoveClockwise: ", wheel);
+  //   if (props.wheel < 5) {
+  //     wheel++;
+  //   } else {
+  //     wheel = 0;
+  //   }
+  //   return props.wheel;
+  // };
+
+  const { moveClockwise } = props;
 
   console.log("logging props here in Wheel: ", props);
   return (
@@ -28,10 +30,7 @@ export function Wheel(props) {
       </div>
       <div id="keypad">
         <button id="counterClockwiseBtn">Counter clockwise</button>
-        <button
-          onClick={() => handleMoveClockwise(props.moveClockwise)}
-          id="clockwiseBtn"
-        >
+        <button onClick={() => dispatch(moveClockwise())} id="clockwiseBtn">
           Clockwise
         </button>
       </div>
