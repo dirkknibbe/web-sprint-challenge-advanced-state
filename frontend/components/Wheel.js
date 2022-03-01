@@ -38,7 +38,7 @@ export function Wheel(props, dispatch) {
   );
 }
 
-export default connect((st) => st, actionCreators)(Wheel);
+export default connect((state) => state, actionCreators)(Wheel);
 
 {
   /* --i is a custom CSS property, no need to touch that nor the style object */

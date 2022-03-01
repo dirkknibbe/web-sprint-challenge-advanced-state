@@ -25,6 +25,19 @@ export function fetchQuiz() {
     // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
     // On successful GET:
     // - Dispatch an action to send the obtained quiz to its state
+    dispatch({ type: types.RESET_FORM });
+    axios
+      .get(`http://localhost:9000/api/quiz/next`)
+      .then((res) => {
+        console.log(res);
+        dispatch({
+          type: types.SET_QUIZ_INTO_STATE,
+          payload: res.data.quiz_id,
+        });
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
   };
 }
 export function postAnswer() {

@@ -5,4 +5,4 @@ import * as actionCreators from "../state/action-creators";
 export function Message(props) {
   return <div id="message">Nice job!</div>;
 }
-export default connect((st) => st, actionCreators)(Message);
+export default connect((state) => state, actionCreators)(Message);
