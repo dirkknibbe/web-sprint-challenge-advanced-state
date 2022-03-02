@@ -4,7 +4,9 @@ import * as actionCreators from "../state/action-creators";
 
 export function Quiz(props) {
   useEffect(() => {
-    props.fetchQuiz();
+    if (props.quiz === null) {
+      props.fetchQuiz();
+    }
   }, []);
 
   const handleClick = (id) => {
