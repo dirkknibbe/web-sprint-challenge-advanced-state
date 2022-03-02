@@ -3,14 +3,19 @@ import { connect } from "react-redux";
 import * as actionCreators from "../state/action-creators";
 
 export function Form(props) {
-  console.log(" HERE IN FORM: ", props.form);
-
   const onChange = (evt) => {
     const { value, id } = evt.target;
     props.inputChange({ ...props.form, [id]: value });
   };
 
-  const onSubmit = (evt) => {};
+  const onSubmit = (evt) => {
+    evt.preventDefault();
+    props.postAnswer({
+      question_text: props.form.newQuestion,
+      true_answer_text: props.form.newTrueAnswer,
+      false_answer_text: props.form.newFalseAnswer,
+    });
+  };
 
   return (
     <form id="form" onSubmit={onSubmit}>
@@ -19,18 +24,21 @@ export function Form(props) {
         maxLength={50}
         onChange={onChange}
         id="newQuestion"
+        value={props.form.newQuestion}
         placeholder="Enter question"
       />
       <input
         maxLength={50}
         onChange={onChange}
         id="newTrueAnswer"
+        value={props.form.newTrueAnswer}
         placeholder="Enter true answer"
       />
       <input
         maxLength={50}
         onChange={onChange}
         id="newFalseAnswer"
+        value={props.form.newFalseAnswer}
         placeholder="Enter false answer"
       />
       <button

@@ -52,6 +52,7 @@ function infoMessage(state = initialMessageState, action) {
   switch (action.type) {
     case types.SET_INFO_MESSAGE:
       return action.payload;
+
     default:
       return state;
   }
@@ -66,6 +67,8 @@ function form(state = initialFormState, action) {
   switch (action.type) {
     case types.INPUT_CHANGE:
       return action.payload;
+    case types.RESET_FORM:
+      return initialFormState;
     default:
       return state;
   }

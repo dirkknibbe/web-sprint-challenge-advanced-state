@@ -58,8 +58,12 @@ export function postAnswer(newQuiz) {
     axios
       .post(`http://localhost:9000/api/quiz/new`, newQuiz)
       .then((res) => {
-        dispatch(setMessage(res.data.message));
+        console.log(res);
 
+        dispatch(selectAnswer(null));
+        dispatch(
+          setMessage(`Congrats: "${res.data.question}" is a great question!`)
+        );
         dispatch(fetchQuiz());
       })
       .catch((err) => {
@@ -67,11 +71,13 @@ export function postAnswer(newQuiz) {
       });
   };
 }
+
 export function postQuiz(answer) {
   return function (dispatch) {
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state
     // - Dispatch the resetting of the form
+    dispatch(resetForm());
     axios
       .post(`http://localhost:9000/api/quiz/answer`, answer)
       .then((res) => {
