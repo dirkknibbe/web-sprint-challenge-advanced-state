@@ -3,7 +3,12 @@ import { connect } from "react-redux";
 import * as actionCreators from "../state/action-creators";
 
 export function Form(props) {
-  const onChange = (evt) => {};
+  console.log(" HERE IN FORM: ", props.form);
+
+  const onChange = (evt) => {
+    const { value, id } = evt.target;
+    props.inputChange({ ...props.form, [id]: value });
+  };
 
   const onSubmit = (evt) => {};
 
@@ -28,7 +33,18 @@ export function Form(props) {
         id="newFalseAnswer"
         placeholder="Enter false answer"
       />
-      <button id="submitNewQuizBtn">Submit new quiz</button>
+      <button
+        id="submitNewQuizBtn"
+        disabled={
+          props.form.newQuestion.trim(" ").length > 0 &&
+          props.form.newTrueAnswer.trim(" ").length > 0 &&
+          props.form.newFalseAnswer.trim(" ").length > 0
+            ? false
+            : true
+        }
+      >
+        Submit new quiz
+      </button>
     </form>
   );
 }

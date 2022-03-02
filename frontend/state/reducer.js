@@ -63,7 +63,12 @@ const initialFormState = {
   newFalseAnswer: "",
 };
 function form(state = initialFormState, action) {
-  return state;
+  switch (action.type) {
+    case types.INPUT_CHANGE:
+      return action.payload;
+    default:
+      return state;
+  }
 }
 
 export default combineReducers({

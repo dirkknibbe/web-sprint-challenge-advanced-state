@@ -22,7 +22,9 @@ export function setQuiz(quiz) {
   return { type: types.SET_QUIZ_INTO_STATE, payload: quiz };
 }
 
-export function inputChange() {}
+export function inputChange(value) {
+  return { type: types.INPUT_CHANGE, payload: value };
+}
 
 export function resetForm() {
   return { type: types.RESET_FORM };
@@ -46,12 +48,23 @@ export function fetchQuiz() {
   };
 }
 
-export function postAnswer() {
+export function postAnswer(newQuiz) {
   return function (dispatch) {
     // On successful POST:
     // - Dispatch an action to reset the selected answer state
     // - Dispatch an action to set the server message to state
     // - Dispatch the fetching of the next quiz
+
+    axios
+      .post(`http://localhost:9000/api/quiz/new`, newQuiz)
+      .then((res) => {
+        dispatch(setMessage(res.data.message));
+
+        dispatch(fetchQuiz());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 }
 export function postQuiz(answer) {
@@ -63,7 +76,7 @@ export function postQuiz(answer) {
       .post(`http://localhost:9000/api/quiz/answer`, answer)
       .then((res) => {
         dispatch(setMessage(res.data.message));
-        // set message and then fetch new quiz
+
         dispatch(fetchQuiz());
       })
       .catch((err) => {

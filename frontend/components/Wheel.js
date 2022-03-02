@@ -6,7 +6,6 @@ export function Wheel(props) {
   const wheelPosition = props.wheel;
   const { dispatch } = props;
 
-  console.log("logging props here in Wheel: ", props.wheel);
   return (
     <div id="wrapper">
       <div id="wheel">
