@@ -9,15 +9,23 @@ export const moveClockwise = (wheel) => {
 };
 export function moveCounterClockwise() {}
 
-export function selectAnswer() {}
+export function selectAnswer(id) {
+  return { type: types.SET_SELECTED_ANSWER, payload: id };
+}
 
-export function setMessage() {}
+export function setMessage(message) {
+  return { type: types.SET_INFO_MESSAGE, payload: message };
+}
 
-export function setQuiz() {}
+export function setQuiz(quiz) {
+  return { type: types.SET_QUIZ_INTO_STATE, payload: quiz };
+}
 
 export function inputChange() {}
 
-export function resetForm() {}
+export function resetForm() {
+  return { type: types.RESET_FORM };
+}
 
 // ❗ Async action creators
 export function fetchQuiz() {
@@ -25,21 +33,18 @@ export function fetchQuiz() {
     // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
     // On successful GET:
     // - Dispatch an action to send the obtained quiz to its state
-    dispatch({ type: types.RESET_FORM });
+    dispatch(resetForm());
     axios
       .get(`http://localhost:9000/api/quiz/next`)
       .then((res) => {
-        console.log(res);
-        dispatch({
-          type: types.SET_QUIZ_INTO_STATE,
-          payload: res.data.quiz_id,
-        });
+        dispatch(setQuiz(res.data));
       })
       .catch((err) => {
-        console.log({ err });
+        console.log(err);
       });
   };
 }
+
 export function postAnswer() {
   return function (dispatch) {
     // On successful POST:
@@ -48,11 +53,21 @@ export function postAnswer() {
     // - Dispatch the fetching of the next quiz
   };
 }
-export function postQuiz() {
+export function postQuiz(answer) {
   return function (dispatch) {
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state
     // - Dispatch the resetting of the form
+    axios
+      .post(`http://localhost:9000/api/quiz/answer`, answer)
+      .then((res) => {
+        dispatch(setMessage(res.data.message));
+        // set message and then fetch new quiz
+        dispatch(fetchQuiz());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 }
 
