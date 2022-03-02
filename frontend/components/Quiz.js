@@ -27,7 +27,13 @@ export function Quiz(props) {
             <h2>{props.quiz.question}</h2>
 
             <div id="quizAnswers">
-              <div className="answer selected">
+              <div
+                className={
+                  props.quiz.answers[0].answer_id === props.selectedAnswer
+                    ? "answer selected"
+                    : "answer"
+                }
+              >
                 {props.quiz.answers[0].text}
                 <button
                   onClick={() => handleClick(props.quiz.answers[0].answer_id)}
@@ -38,7 +44,13 @@ export function Quiz(props) {
                 </button>
               </div>
 
-              <div className="answer">
+              <div
+                className={
+                  props.quiz.answers[1].answer_id === props.selectedAnswer
+                    ? "answer selected"
+                    : "answer"
+                }
+              >
                 {props.quiz.answers[1].text}
                 <button
                   onClick={() => handleClick(props.quiz.answers[1].answer_id)}
@@ -50,7 +62,11 @@ export function Quiz(props) {
               </div>
             </div>
 
-            <button onClick={() => handleSubmit()} id="submitAnswerBtn">
+            <button
+              disabled={props.selectedAnswer ? false : true}
+              onClick={() => handleSubmit()}
+              id="submitAnswerBtn"
+            >
               Submit answer
             </button>
           </>
