@@ -4,10 +4,11 @@ import axios from "axios";
 
 // ❗ You don't need to add extra action creators to achieve MVP
 export const moveClockwise = (wheel) => {
-  console.log("here is moveClockwise: ", wheel);
   return { type: types.MOVE_CLOCKWISE, payload: wheel };
 };
-export function moveCounterClockwise() {}
+export function moveCounterClockwise(wheel) {
+  return { type: types.MOVE_COUNTERCLOCKWISE, payload: wheel };
+}
 
 export function selectAnswer(id) {
   return { type: types.SET_SELECTED_ANSWER, payload: id };
